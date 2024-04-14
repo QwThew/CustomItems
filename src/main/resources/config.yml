@@ -1,0 +1,42 @@
+runes:
+  fast:
+    material: ELYTRA
+    name: 'Очень классная руна'
+    lore:
+      - 'Делает что-то крутое'
+      - 'и классное :)'
+    flags: # HIDE_ENCHANTS, HIDE_ATTRIBUTES, HIDE_UNBREAKABLE, HIDE_DESTROYS, HIDE_PLACED_ON, HIDE_POTION_EFFECTS, HIDE_DYE;
+      - HIDE_ENCHANTS
+      - HIDE_ATTRIBUTES
+      - HIDE_UNBREAKABLE
+      - HIDE_DESTROYS
+      - HIDE_PLACED_ON
+      - HIDE_POTION_EFFECTS
+      - HIDE_DYE
+    enchants:
+      '0':
+        enchant: sharpness # Название зачарования
+        level: 6 # левел
+        iLR: true # ignoreLevelRestriction
+    attributes:
+      '0':
+        attribute: GENERIC_MAX_HEALTH # название атрибута
+        attributename: generic.max_health # название из /attribute nickname *
+        amount: 4 # кол-во
+        operation: ADD_NUMBER # типы ADD_NUMBER, ADD_SCALAR, MULTIPLY_SCALAR_1;
+        equipmentslot: CHEST # OFF_HAND, CHEST, FEET, HAND, HEAD, LEGS
+# effects SPEED, SLOW, FAST_DIGGING, SLOW_DIGGING, INCREASE_DAMAGE, HEAL, HARM, JUMP, CONFUSION, REGENERATION,
+# DAMAGE_RESISTANCE, FIRE_RESISTANCE, WATER_BREATHING, INVISIBILITY, BLINDNESS, NIGHT_VISION, HUNGER, WEAKNESS, POISON, WITHER,
+# HEALTH_BOOST, ABSORPTION, SATURATION, GLOWING, LEVITATION, LUCK, UNLUCK, SLOW_FALLING, CONDUIT_POWER, DOLPHINS_GRACE, BAD_OMEN,
+# HERO_OF_THE_VILLAGE
+talismans:
+  fast:
+    material: PLAYER_HEAD # материал предмета
+    id: hastle # нбт айтема по которому оно будет работать
+    effects: # еффекты, которые будут даваться
+      '0':
+        effect: INVISIBILITY
+        power: 1
+      '1':
+        effect: SPEED
+        power: 2
