@@ -3,7 +3,6 @@ package dev.thew.customitems.talismans.service;
 import dev.thew.customitems.talismans.model.Talisman;
 import lombok.Getter;
 import org.apache.commons.lang.Validate;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,7 +39,6 @@ public class TalismanService {
         Talisman cacheTalisman = getTalisman(player);
         Talisman handTalisman = getTalisman(offhand);
 
-
         if(cacheTalisman == null && handTalisman != null) handTalisman.give(player);
         else if(cacheTalisman != null && handTalisman == null) cacheTalisman.remove(player);
     }
@@ -52,11 +50,6 @@ public class TalismanService {
         for (String talismanId : section.getKeys(false)) {
             ConfigurationSection talismanSection = section.getConfigurationSection(talismanId);
             Validate.notNull(talismanSection, "talisman section is null");
-
-            String materialName = talismanSection.getString("material");
-
-            Material material = Material.valueOf(materialName);
-            Validate.notNull(material, "material " + materialName + " is not found");
 
             String id = talismanSection.getString("id");
             Validate.notNull(id, "id is null");
@@ -83,7 +76,6 @@ public class TalismanService {
 
             talismans.add(Talisman.builder()
                     .effects(effects)
-                    .material(material)
                     .nbt(id)
                     .build()
             );
