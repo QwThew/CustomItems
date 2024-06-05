@@ -30,5 +30,4 @@ public class Utils {
         return flags;
     }
 
-
 }

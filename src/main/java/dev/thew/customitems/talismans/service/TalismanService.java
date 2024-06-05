@@ -1,8 +1,11 @@
 package dev.thew.customitems.talismans.service;
 
+import dev.thew.customitems.CustomItems;
 import dev.thew.customitems.talismans.model.Talisman;
+import dev.thew.customitems.talismans.types.ExplotionDefender;
 import lombok.Getter;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -30,12 +34,15 @@ public class TalismanService {
     @Getter
     static Map<Player, Talisman> cache = new HashMap<>();
 
-    private static Talisman getTalisman(final Player player){
+    @Getter
+    static NamespacedKey namespacedKey;
+
+    public static Talisman getTalisman(final Player player){
         if(cache.containsKey(player)) return cache.get(player);
         return null;
     }
 
-    public static void update(final Player player, ItemStack offhand){
+    public static void update(final Player player,final ItemStack offhand) {
         Talisman cacheTalisman = getTalisman(player);
         Talisman handTalisman = getTalisman(offhand);
 
@@ -43,7 +50,13 @@ public class TalismanService {
         else if(cacheTalisman != null && handTalisman == null) cacheTalisman.remove(player);
     }
 
-    public static void loadConfiguration(FileConfiguration config){
+    public static void loadCustomEvents(){
+        Bukkit.getPluginManager().registerEvents(new ExplotionDefender(), CustomItems.getInstance());
+    }
+
+    public static void loadConfiguration(FileConfiguration config) {
+        namespacedKey = new NamespacedKey(CustomItems.getInstance(), "talisman");
+
         ConfigurationSection section = config.getConfigurationSection("talismans");
         Validate.notNull(section, "talismans section is null");
 
@@ -84,15 +97,23 @@ public class TalismanService {
 
     public static Talisman getTalisman(ItemStack itemStack){
         ItemMeta itemMeta = itemStack.getItemMeta();
-        assert itemMeta != null;
+        if (itemMeta == null) return null;
 
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
+        String talismanId = container.get(namespacedKey, PersistentDataType.STRING);
 
         for (Talisman talisman : talismans)
-            for (NamespacedKey key : container.getKeys())
-                if (key.getKey().equalsIgnoreCase(talisman.getNbt())) return talisman;
+            if (talisman.getNbt().equalsIgnoreCase(talismanId)) return talisman;
 
         return null;
+    }
+
+    public static void removeCache(final Player player){
+        cache.remove(player);
+    }
+
+    public static void addCache(final Player player, final Talisman talisman){
+        cache.put(player, talisman);
     }
 
     public static void shutDown(){

@@ -11,16 +11,16 @@ import java.util.List;
 @Getter
 @Builder
 public class Talisman {
-    String nbt;
-    List<PotionEffect> effects;
+    final String nbt;
+    final List<PotionEffect> effects;
 
-    public void give(Player player) {
+    public void give(final Player player) {
         player.addPotionEffects(effects);
-        TalismanService.getCache().put(player, this);
+        TalismanService.addCache(player, this);
     }
 
-    public void remove(Player player) {
+    public void remove(final Player player) {
         effects.forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
-        TalismanService.getCache().remove(player);
+        TalismanService.removeCache(player);
     }
 }

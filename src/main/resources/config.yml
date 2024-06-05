@@ -25,18 +25,22 @@ runes:
         amount: 4 # кол-во
         operation: ADD_NUMBER # типы ADD_NUMBER, ADD_SCALAR, MULTIPLY_SCALAR_1;
         equipmentslot: CHEST # OFF_HAND, CHEST, FEET, HAND, HEAD, LEGS
-# effects SPEED, SLOW, FAST_DIGGING, SLOW_DIGGING, INCREASE_DAMAGE, HEAL, HARM, JUMP, CONFUSION, REGENERATION,
+# effects: SPEED, SLOW, FAST_DIGGING, SLOW_DIGGING, INCREASE_DAMAGE, HEAL, HARM, JUMP, CONFUSION, REGENERATION,
 # DAMAGE_RESISTANCE, FIRE_RESISTANCE, WATER_BREATHING, INVISIBILITY, BLINDNESS, NIGHT_VISION, HUNGER, WEAKNESS, POISON, WITHER,
 # HEALTH_BOOST, ABSORPTION, SATURATION, GLOWING, LEVITATION, LUCK, UNLUCK, SLOW_FALLING, CONDUIT_POWER, DOLPHINS_GRACE, BAD_OMEN,
 # HERO_OF_THE_VILLAGE
+
+# ID костомных талисманов: hasteexp (спешка 2 + защита на 50 процентов от урона)
 talismans:
-  fast:
-    material: PLAYER_HEAD # материал предмета
-    id: hastle # нбт айтема по которому оно будет работать
+  haste:
+    id: haste # нбт айтема по которому оно будет работать
     effects: # еффекты, которые будут даваться
       '0':
-        effect: INVISIBILITY
+        effect: FAST_DIGGING
         power: 1
-      '1':
-        effect: SPEED
-        power: 2
+  hasteexp:
+    id: hasteexp # нбт айтема по которому оно будет работать
+    effects: # еффекты, которые будут даваться
+      '0':
+        effect: FAST_DIGGING
+        power: 1

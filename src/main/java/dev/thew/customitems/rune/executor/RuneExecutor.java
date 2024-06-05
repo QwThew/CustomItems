@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,8 +19,8 @@ public class RuneExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NonNull CommandSender sender,@NonNull Command command,@NonNull String s,@NonNull String[] args) {
-
         if (!(sender instanceof Player player)){
+
             if (args.length == 2) {
                 String runeName = args[0];
                 String playerName = args[1];
@@ -41,7 +42,6 @@ public class RuneExecutor implements CommandExecutor, TabCompleter {
             }
             return true;
         }
-
         if (args.length == 1) {
             String runeName = args[0];
             Rune rune = RuneService.getRuneById(runeName);
@@ -57,7 +57,7 @@ public class RuneExecutor implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public List<String> onTabComplete(@NonNull CommandSender sender,@NonNull Command command,@NonNull String s, String[] args) {
+    public List<String> onTabComplete(@NonNull CommandSender sender,@NonNull Command command,@NonNull String s, String @NotNull [] args) {
         if (args.length == 1) return RuneService.getRunesId();
         return Collections.emptyList();
     }
