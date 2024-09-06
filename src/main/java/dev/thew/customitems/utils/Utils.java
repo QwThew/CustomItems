@@ -24,9 +24,7 @@ public class Utils {
 
     public static List<ItemFlag> getItemFlags(List<String> args) {
         List<ItemFlag> flags = new ArrayList<>();
-
         args.forEach(arg -> flags.add(ItemFlag.valueOf(arg)));
-
         return flags;
     }
 
